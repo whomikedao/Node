@@ -12,25 +12,50 @@
         email: <input id="email" type="text" name="email"><br>
         number: <input id="number" type="text" name="number"><br>
         <br>
-        <button type="submit">Submit</button>
+        <button id="submitButton" type="submit">Submit</button>
 
     </form>
     <div id="message"></div>
-
+    <script
+    src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous"></script>
     <script>
-        fetch('/', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                number: document.getElementById('email')
+        $(function(){
+            $('form').submit((e)=>{
+                e.preventDefault();
+                $.post('/', {
+                    name: $('#name').val(),
+                    email: $('#email').val(),
+                    number: $('#number').val()
+                }, successFunction)
             })
+
+            let successFunction = (data) => {
+                $('#message').html('successful post');
+            }
+            
         })
-        .then((data)=>{
-            document.getElementById('message').innerHTML = "form data has been sent"
-        })
-    
+
+
+
+    //      JAVASCRIPT WAY OF FETCHING
+    //    let submitButton = document.getElementById('submitButton');
+    //    submitButton.addEventListener('click', (e)=>{
+    //        e.preventDefault();
+    //         fetch('/', {
+    //         method: "POST",
+    //         headers: {'Content-Type': 'application/json'},
+    //         body: JSON.stringify({
+    //             name: document.getElementById('name').value,
+    //             email: document.getElementById('email').value,
+    //             number: document.getElementById('number').value,
+    //             })
+    //         })
+    //         .then((data)=>{
+    //             document.getElementById('message').innerText = "form data has been sent"
+    //         }) 
+    //    })
     </script>
 </body>
 </html>
